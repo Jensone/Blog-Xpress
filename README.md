@@ -1,6 +1,8 @@
 # Projet backend - Blog Xpress
 
-![Actus Crypto](public/images/core/bx-color.svg)
+<p align="center">
+  <img src="public/images/core/bx-color.svg" alt="Actus Crypto" width="300" />
+</p>
 
 ## Description
 
