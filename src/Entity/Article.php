@@ -35,6 +35,9 @@ class Article
     #[ORM\Column]
     private ?bool $featured = false;
 
+    #[ORM\Column]
+    private ?bool $isPremium = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +123,18 @@ class Article
     public function setFeatured(bool $featured): self
     {
         $this->featured = $featured;
+
+        return $this;
+    }
+
+    public function isIsPremium(): ?bool
+    {
+        return $this->isPremium;
+    }
+
+    public function setIsPremium(bool $isPremium): self
+    {
+        $this->isPremium = $isPremium;
 
         return $this;
     }
