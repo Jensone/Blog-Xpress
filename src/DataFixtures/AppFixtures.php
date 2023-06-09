@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use DateTimeImmutable;
 use App\Entity\Article;
 use App\Entity\Category;
 use Doctrine\Persistence\ObjectManager;
@@ -42,6 +43,7 @@ class AppFixtures extends Fixture
                 'title' => 'Introduction to Front-end Development',
                 'slug' => 'introduction-to-front-end-development',
                 'content' => 'Front-end development focuses on creating user interfaces and enhancing the user experience. It involves using HTML, CSS, and JavaScript to build interactive websites and web applications that users can interact with directly in their browsers.',
+                'isPremium' => false,
                 'featured' => false
             ],
             [
@@ -49,6 +51,7 @@ class AppFixtures extends Fixture
                 'title' => 'Top Front-end Frameworks in 2023',
                 'slug' => 'top-front-end-frameworks-in-2023',
                 'content' => 'Front-end development is evolving rapidly, and several frameworks have gained popularity. Some of the top front-end frameworks in 2023 include React, Angular, and Vue.js. These frameworks provide efficient tools and libraries that help developers build dynamic and responsive user interfaces.',
+                'isPremium' => false,
                 'featured' => true
             ],
             [
@@ -56,6 +59,7 @@ class AppFixtures extends Fixture
                 'title' => 'Understanding Back-end Development',
                 'slug' => 'understanding-back-end-development',
                 'content' => 'Back-end development involves server-side programming and handling data processing and business logic. It focuses on the behind-the-scenes functionality that powers websites and web applications. Back-end developers often work with languages like PHP, Python, or Node.js and interact with databases to retrieve and manipulate data.',
+                'isPremium' => false,
                 'featured' => false
             ],
             [
@@ -63,6 +67,7 @@ class AppFixtures extends Fixture
                 'title' => 'Building RESTful APIs with Node.js',
                 'slug' => 'building-restful-apis-with-node-js',
                 'content' => 'Building RESTful APIs is a crucial part of back-end development. Node.js, with its non-blocking and event-driven architecture, is an excellent choice for building high-performance APIs. With popular frameworks like Express.js, developers can create robust and scalable APIs that allow clients to interact with server resources.',
+                'isPremium' => false,
                 'featured' => true
             ],
             [
@@ -70,6 +75,7 @@ class AppFixtures extends Fixture
                 'title' => 'The Importance of UI/UX Design',
                 'slug' => 'the-importance-of-ui-ux-design',
                 'content' => 'UI/UX design plays a critical role in creating user-friendly and visually appealing interfaces. It involves understanding user needs, conducting research, and designing intuitive and engaging user experiences. By focusing on usability, accessibility, and aesthetics, UI/UX designers contribute to the success of websites and applications.',
+                'isPremium' => false,
                 'featured' => false
             ],
             [
@@ -77,6 +83,7 @@ class AppFixtures extends Fixture
                 'title' => 'Designing Mobile-first User Interfaces',
                 'slug' => 'designing-mobile-first-user-interfaces',
                 'content' => 'With the rise of mobile devices, designing mobile-first user interfaces has become essential. Mobile-first design prioritizes the mobile user experience, ensuring that websites and applications look and function well on smaller screens. By starting with mobile design, developers can create responsive and adaptive interfaces that scale up to larger devices.',
+                'isPremium' => false,
                 'featured' => false
             ],
             [
@@ -84,6 +91,7 @@ class AppFixtures extends Fixture
                 'title' => 'Introduction to Database Management',
                 'slug' => 'introduction-to-database-management',
                 'content' => 'Database management is crucial for handling data storage, retrieval, and manipulation using database technologies. It involves understanding different database models (e.g., relational, NoSQL), optimizing query performance, ensuring data integrity, and implementing efficient data storage strategies.',
+                'isPremium' => false,
                 'featured' => false
             ],
             [
@@ -91,6 +99,7 @@ class AppFixtures extends Fixture
                 'title' => 'Exploring NoSQL Databases',
                 'slug' => 'exploring-nosql-databases',
                 'content' => 'NoSQL databases have gained popularity for handling large-scale and unstructured data. These databases provide flexibility, scalability, and fast data retrieval, making them suitable for modern applications. Popular NoSQL databases include MongoDB, Cassandra, and Redis, each with its unique features and use cases.',
+                'isPremium' => false,
                 'featured' => false
             ],
             [
@@ -98,6 +107,7 @@ class AppFixtures extends Fixture
                 'title' => 'Understanding Cybersecurity Threats',
                 'slug' => 'understanding-cybersecurity-threats',
                 'content' => 'Cybersecurity focuses on protecting computer systems and networks from unauthorized access or attacks. Understanding common cybersecurity threats, such as malware, phishing, and data breaches, is crucial for implementing effective security measures. By staying informed about the latest security practices, organizations can safeguard their digital assets.',
+                'isPremium' => false,
                 'featured' => false
             ],
             [
@@ -105,6 +115,7 @@ class AppFixtures extends Fixture
                 'title' => 'Securing Web Applications',
                 'slug' => 'securing-web-applications',
                 'content' => 'Securing web applications is vital to prevent vulnerabilities and protect user data. Implementing measures such as secure coding practices, input validation, user authentication, and encryption helps defend against common web application attacks. Regular security audits and updates ensure that applications stay resilient against evolving threats.',
+                'isPremium' => false,
                 'featured' => true
             ]
         ];
@@ -125,8 +136,9 @@ class AppFixtures extends Fixture
             $article->setCategory($category);
             $article->setSlug($webTechArticle['slug']);
             $article->setTitle($webTechArticle['title']);
-            $article->setCreatedAt(new \DateTimeImmutable());
+            $article->setCreatedAt(new DateTimeImmutable());
             $article->setContent($webTechArticle['content']);
+            $article->setIsPremium($webTechArticle['isPremium']);
             $article->setFeatured($webTechArticle['featured']);
             
             // Persist permet de sauvegarder les données dans la base de données
