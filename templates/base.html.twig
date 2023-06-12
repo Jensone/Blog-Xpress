@@ -4,7 +4,7 @@
 		<meta charset="UTF-8">
 		<title>
 			{% block title %}{% endblock %}
-			• Xpress</title>
+			• BlogXpress</title>
 		<link rel="icon" href={{ asset('images/core/bx-icon.svg') }}>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,35 +16,84 @@
 		<div class="container">
 			<header class="border-bottom lh-1 py-3">
 				<div class="row flex-nowrap justify-content-between align-items-center">
-					<div class="col-12 text-center">
-						<a class="blog-header-logo text-body-emphasis text-decoration-none" href={{ path('homepage') }}>
-							<img src={{ asset('images/core/bx-line-dark.svg') }} alt="BlogXpress" width="180">
-						</a>
-					</div>
+					
+					{# Admin menu modal #}
+					{% if is_granted('ROLE_ADMIN') %}
+						<div class="col">
+							<a class="blog-header-logo text-body-emphasis text-decoration-none" href={{ path('homepage') }}>
+								<img src={{ asset('images/core/bx-line-dark.svg') }} alt="BlogXpress" width="180">
+							</a>
+						</div>
+						<div class="col text-end">
+							<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#adminMenu">
+								Menu Admin
+							</button>
+						</div>
+						<!-- Button trigger modal -->
+
+						<!-- Modal -->
+						<div class="modal fade" id="adminMenu" tabindex="-1" aria-labelledby="adminMenu" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h1 class="modal-title fs-5" id="adminMenu">Menu d'aministration</h1>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<ul>
+											<li>
+												<h4><a href={{ path('app_article_index') }}>Gestion des articles</a></h4>
+											</li>
+											<li>
+												<h4><a href={{ path('app_category_index') }}>Gestion des catégories</a></h4>
+											</li>
+										</ul>
+									</div>
+									<div class="modal-footer ">
+										<a href={{ path('app_logout') }}>Déconnexion</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% else %}
+						<div class="col-12 text-center">
+							<a class="blog-header-logo text-body-emphasis text-decoration-none" href={{ path('homepage') }}>
+								<img src={{ asset('images/core/bx-line-dark.svg') }} alt="BlogXpress" width="180">
+							</a>
+						</div>
+					{% endif %}
 				</div>
 			</header>
 			<div class="nav-scroller py-1 mb-3 border-bottom">
 				<nav class="nav nav-underline justify-content-between">
-					{# {% for item in categories %}
-						<a class="nav-item nav-link link-body-emphasis" href="#">
-							{{ item.name }}
-						</a>
-					{% endfor %} #}
+					<a class="nav-item nav-link link-body-emphasis" href={{ path('frontend') }}>Frontend</a>
+					<a class="nav-item nav-link link-body-emphasis" href={{ path('backend') }}>Backend</a>
+					<a class="nav-item nav-link link-body-emphasis" href={{ path('design') }}>UI/UX Design</a>
+					<a class="nav-item nav-link link-body-emphasis" href={{ path('data') }}>Base de données</a>
+					<a class="nav-item nav-link link-body-emphasis" href={{ path('cybersecurity') }}>Cybersécurité</a>
 				</nav>
 			</div>
 		</div>
 
+
 		<main class="container"> {% block body %}{% endblock %}</main>
 
-			<footer class="mt-5 py-5 text-center text-body-secondary bg-body-tertiary">
-				<a href={{ path('homepage') }}>
-					<img src={{ asset('images/core/bx-line-dark.svg') }} alt="BlogXpress" width="180">
-				</a>
-				<p class="mt-3">
-					<a class="text-dark" href="#">Retour en haut</a> | <a class="text-dark" href="/admin">Connexion</a>
-				</p>
-			</footer>
+		<footer class="mt-5 py-5 text-center text-body-secondary bg-body-tertiary">
+			<a href={{ path('homepage') }}>
+				<img src={{ asset('images/core/bx-line-dark.svg') }} alt="BlogXpress" width="180">
+			</a>
+			<p class="mt-3">
+				<a class="text-dark" href="#">Retour en haut</a> | 
+				{# Affiche le contenu en fonction de la connexion d'admin #}
+				{% if is_granted('ROLE_ADMIN') %}
+					<a class="text-dark" href={{ path('app_logout') }}>Déconnexion</a>
+				{% else %}
+					<a class="text-dark" href={{ path('app_login') }}>Connexion</a>
+				{% endif %}
+			</p>
+		</footer>
 
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-		</body>
-	</html>
+
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+	</body>
+</html>
