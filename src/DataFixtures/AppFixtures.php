@@ -27,8 +27,8 @@ class AppFixtures extends Fixture
         $admin2 = new User();
         $admin2->setEmail('martin@blogxpress.fr');
         $admin2->setRoles(["ROLE_ADMIN"]);
-        $admin->setFirstname('Martin');
-        $admin->setLastname('BX');
+        $admin2->setFirstname('Martin');
+        $admin2->setLastname('BX');
         $admin2->setPassword('$2y$13$0YLl5ftr31zS1vN7BMs6getunDRHUi1vXxObuJ9rvV98T2wbJ0hBS');
         $manager->persist($admin2);
         
@@ -36,8 +36,8 @@ class AppFixtures extends Fixture
         $admin3 = new User();
         $admin3->setEmail('leo@blogxpress.fr');
         $admin3->setRoles(["ROLE_ADMIN"]);
-        $admin->setFirstname('Leo');
-        $admin->setLastname('BX');
+        $admin3->setFirstname('Leo');
+        $admin3->setLastname('BX');
         $admin3->setPassword('$2y$13$0YLl5ftr31zS1vN7BMs6getunDRHUi1vXxObuJ9rvV98T2wbJ0hBS');
         $manager->persist($admin3);
         
