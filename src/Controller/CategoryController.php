@@ -76,12 +76,4 @@ class CategoryController extends AbstractController
         return $this->redirectToRoute('app_category_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    public function navigation(
-        CategoryRepository $categories
-        ): Response
-    {
-        return $this->render('/templates/base.html.twig', [
-            'categories' => $categories->findAll(),
-        ]);
-    }
 }
