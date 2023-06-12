@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -23,10 +24,16 @@ class ArticleType extends AbstractType
                     'uiColor' => '#ffffff',
                 ),
             ))
-            ->add('image', TextType::class)
+            ->add('image', FileType::class, [
+                'required' => false,
+            ])
             ->add('createdAt', DateTimeType::class)
-            ->add('featured', CheckboxType::class)
-            ->add('isPremium', CheckboxType::class)
+            ->add('featured', CheckboxType::class, [
+                'required' => false,
+            ])
+            ->add('isPremium', CheckboxType::class, [
+                'required' => false,
+            ])
             ->add('category', null, [
                 'choice_label' => 'name',
                 'placeholder' => 'Choisir une catégorie'
