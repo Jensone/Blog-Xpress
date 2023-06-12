@@ -21,6 +21,7 @@
 				<hr>
 				<h4>{{ article.title }}</h4>
 				<p>{{ article.content|slice(0, 50) }}...</p>
+				<p>Écrit par {{ article.author.firstname }}</p>
 				<p>Publication le {{ article.createdAt|date('d/m/Y') }}</p>
 				<hr>
 				<div class="d-flex justify-content-between align-items-center">
@@ -44,49 +45,11 @@
 						</a>
 					</p>
 				</div>
-
-				
-				
+	
 			</div>
 		{% endfor %}
 	</div>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Title</th>
-				<th>Slug</th>
-				<th>Content</th>
-				<th>Image</th>
-				<th>CreatedAt</th>
-				<th>Featured</th>
-				<th>IsPremium</th>
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for article in articles %}
-				<tr>
-					<td>{{ article.id }}</td>
-					<td>{{ article.title }}</td>
-					<td>{{ article.slug }}</td>
-					<td>{{ article.content }}</td>
-					<td>{{ article.image }}</td>
-					<td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-					<td>{{ article.featured ? 'Yes' : 'No' }}</td>
-					<td>{{ article.isPremium ? 'Yes' : 'No' }}</td>
-					<td>
-						<a href="{{ path('app_article_show', {'id': article.id}) }}">show</a>
-						
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="9">no records found</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+	{# <a href="{{ path('app_article_show', {'id': article.id}) }}">show</a> #}
 
 {% endblock %}
