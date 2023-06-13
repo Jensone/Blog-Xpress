@@ -24,7 +24,7 @@ class ArticleType extends AbstractType
                     'uiColor' => '#ffffff',
                 ),
             ))
-            ->add('image', FileType::class, [
+            ->add('image', TextType::class, [
                 'required' => false,
             ])
             ->add('createdAt', DateTimeType::class)

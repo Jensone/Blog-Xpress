@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,14 +39,13 @@ class HomepageController extends AbstractController
 
     #[Route('/frontend', name: 'frontend', methods: ['GET'])]
     public function frontend(
-        ArticleRepository $articleRepository
+        CategoryRepository $categoryRepository,
         ): Response
     {
         return $this->render('homepage/frontend.html.twig', [
-            'articles' => $articleRepository->findBy(
-                ['category' => 'Frontend'],
-                ['createdAt' => 'DESC']
-            ),
+            'articles' => $categoryRepository->findBy(
+                ['name' => 'Frontend'],
+            )
         ]);
     }
 
@@ -98,6 +98,16 @@ class HomepageController extends AbstractController
                 ['category' => 'Cybersécurité'],
                 ['createdAt' => 'DESC']
             ),
+        ]);
+    }
+
+    #[Route('/article/{slug}', name: 'app_article_only', methods: ['GET'])]
+    public function articleOnly(
+        Article $article
+        ): Response
+    {
+        return $this->render('homepage/article.html.twig', [
+            'article' => $article,
         ]);
     }
 }

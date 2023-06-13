@@ -67,6 +67,35 @@ class AppFixtures extends Fixture
         $cyberCategory ->setDescription('Se concentre sur la protection des systèmes informatiques et des réseaux contre les accès non autorisés ou les attaques.');
         $manager->persist($cyberCategory);
 
+        // Images
+        $images1 = [
+            'file_0.webp',
+            'file_1.webp',
+            'file_2.webp',
+            'file_3.webp',
+            'file_4.webp',
+            'file_5.webp',
+            'file_6.webp',
+            'file_7.webp',
+            'file_8.webp',
+            'file_9.webp',
+            'file_10.webp',
+            'file_11.webp',
+            'file_12.webp',
+            'file_13.webp',
+            'file_14.webp',
+            'file_15.webp',
+            'file_16.webp',
+            'file_17.webp',
+            'file_18.webp',
+            'file_19.webp',
+            'file_20.webp',
+            'file_21.webp',
+            'file_22.webp',
+            'file_23.webp',
+            'file_24.webp',
+        ];
+
         // Articles
         $frontend = [
             [
@@ -127,6 +156,7 @@ class AppFixtures extends Fixture
             $article->setIsPremium($item['isPremium']);
             $article->setFeatured($item['featured']);
             $article->setAuthor($item['author']);
+            $article->setImage($images1[array_rand($images1)]);
             // Persist permet de sauvegarder les données dans la base de données
             $manager->persist($article);
         }
@@ -190,6 +220,7 @@ class AppFixtures extends Fixture
             $article->setIsPremium($item['isPremium']);
             $article->setFeatured($item['featured']);
             $article->setAuthor($item['author']);
+            $article->setImage($images1[array_rand($images1)]);
             // Persist permet de sauvegarder les données dans la base de données
             $manager->persist($article);
         }
@@ -253,6 +284,7 @@ class AppFixtures extends Fixture
             $article->setIsPremium($item['isPremium']);
             $article->setFeatured($item['featured']);
             $article->setAuthor($item['author']);
+            $article->setImage($images1[array_rand($images1)]);
             // Persist permet de sauvegarder les données dans la base de données
             $manager->persist($article);
         }
@@ -316,6 +348,7 @@ class AppFixtures extends Fixture
             $article->setIsPremium($item['isPremium']);
             $article->setFeatured($item['featured']);
             $article->setAuthor($item['author']);
+            $article->setImage($images1[array_rand($images1)]);
             // Persist permet de sauvegarder les données dans la base de données
             $manager->persist($article);
         }
@@ -379,6 +412,7 @@ class AppFixtures extends Fixture
             $article->setIsPremium($item['isPremium']);
             $article->setFeatured($item['featured']);
             $article->setAuthor($item['author']);
+            $article->setImage($images1[array_rand($images1)]);
             // Persist permet de sauvegarder les données dans la base de données
             $manager->persist($article);
         }

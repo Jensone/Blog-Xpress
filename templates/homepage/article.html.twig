@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	{{ dump(article) }}
+
+<div class="container">
+	<img 
+		src="{{ asset('/images/articles') }}/{{ article.image }}" 
+		alt="{{ article.title }}" 
+		class="rounded shadow-md img-fluid"
+	>
+</div>
+
+
+{% endblock %}
