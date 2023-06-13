@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
+use PhpParser\Node\Expr\Cast;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,70 +38,72 @@ class HomepageController extends AbstractController
         ]);
     }
 
+    // Route pour afficher les articles de la catégorie Frontend
     #[Route('/frontend', name: 'frontend', methods: ['GET'])]
     public function frontend(
         CategoryRepository $categoryRepository,
         ): Response
     {
-        return $this->render('homepage/frontend.html.twig', [
+        return $this->render('homepage/articles.html.twig', [
             'articles' => $categoryRepository->findBy(
                 ['name' => 'Frontend'],
             )
         ]);
     }
 
+    // Route pour afficher les articles de la catégorie Backend
     #[Route('/backend', name: 'backend', methods: ['GET'])]
     public function backend(
-        ArticleRepository $articleRepository
+        CategoryRepository $categoryRepository
         ): Response
     {
-        return $this->render('homepage/backend.html.twig', [
-            'articles' => $articleRepository->findBy(
-                ['category' => 'Backend'],
-                ['createdAt' => 'DESC']
-            ),
+        return $this->render('homepage/articles.html.twig', [
+            'articles' => $categoryRepository->findBy(
+                ['name' => 'Backend'],
+            )
         ]);
     }
 
+    // Route pour afficher les articles de la catégorie UI/UX Design
     #[Route('/design', name: 'design', methods: ['GET'])]
     public function design(
-        ArticleRepository $articleRepository
+        CategoryRepository $categoryRepository
         ): Response
     {
-        return $this->render('homepage/design.html.twig', [
-            'articles' => $articleRepository->findBy(
-                ['category' => 'UI/UX Design'],
-                ['createdAt' => 'DESC']
+        return $this->render('homepage/articles.html.twig', [
+            'articles' => $categoryRepository->findBy(
+                ['name' => 'UI/UX Design'],
             ),
         ]);
     }
 
+    // Route pour afficher les articles de la catégorie Base de données
     #[Route('/data', name: 'data', methods: ['GET'])]
     public function data(
-        ArticleRepository $articleRepository
+        CategoryRepository $categoryRepository
         ): Response
     {
-        return $this->render('homepage/data.html.twig', [
-            'articles' => $articleRepository->findBy(
-                ['category' => 'Base de données'],
-                ['createdAt' => 'DESC']
-            ),
+        return $this->render('homepage/articles.html.twig', [
+            'articles' => $categoryRepository->findBy(
+                ['name' => 'Base de données'],
+            )
         ]);
     }
 
+    // Route pour afficher les articles de la catégorie Cybersécurité
     #[Route('/cybersecurity', name: 'cybersecurity', methods: ['GET'])]
     public function cybersecurity(
-        ArticleRepository $articleRepository
+        CategoryRepository $categoryRepository
         ): Response
     {
-        return $this->render('homepage/cybersecurity.html.twig', [
-            'articles' => $articleRepository->findBy(
-                ['category' => 'Cybersécurité'],
-                ['createdAt' => 'DESC']
-            ),
+        return $this->render('homepage/articles.html.twig', [
+            'articles' => $categoryRepository->findBy(
+                ['name' => 'Cybersécurité'],
+            )
         ]);
     }
 
+    // Route pour afficher un article de n'importe quelle catégorie
     #[Route('/article/{slug}', name: 'app_article_only', methods: ['GET'])]
     public function articleOnly(
         Article $article
