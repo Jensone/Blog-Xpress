@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace Premium
+{% endblock %}
+{% block desc %}Espace dédié aux abonnés premium de BlogXpress
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href={{ asset('/css/premium.css')}}>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="https://js.stripe.com/v3/" defer></script>
+	<script>
+		let stripe = Stripe("{{ stripe_key }}");
+		let elements = stripe.elements();
+		let cardElement = elements.create("card");
+		cardElement.mount("#card-element");
+		function createToken() {
+		document.getElementById("pay-btn").disabled = true;
+		stripe.createToken(cardElement).then(function (result) {
+		if (typeof result.error != "undefined") {
+		document.getElementById("pay-btn").disabled = false;
+		alert(result.error.message);
+		}
+		// creating token success
+		if (typeof result.token != "undefined") {
+		document.getElementById("stripe-token-id").value = result.token.id;
+		document.getElementById("checkout-form").submit();
+		}
+		});
+		}
+	</script>
+{% endblock %}
+
+{% block body %}
+	{% for message in app.flashes('success') %}
+		<div style="color: green; border: 2px green solid; text-align: center; padding: 5px; margin-bottom: 10px;">
+			{{ message }}
+		</div>
+	{% endfor %}
+	<div class="premium">
+		{% if is_granted('ROLE_USER') %}
+			<div class="text-center pb-4">
+				<h1>Espace Premium</h1>
+				<p class="fs-4">Exclusivement pour vous</p>
+			</div>
+
+			<div class="row justify-content-center gap-3 mt-3">
+				{% for article in articles %}
+					<div class="col-md-5 border rounded p-3">
+						<h4>{{ article.title }}</h4>
+						<p>{{ article.content|slice(0, 50) }}...</p>
+						<p>Écrit par
+							{{ article.author.firstname }}</p>
+						<p>Publié le
+							{{ article.createdAt|date('d/m/Y') }}</p>
+						<hr>
+						<p>
+							<a href={{ path('app_article_only', {'slug': article.slug} ) }}>Lire l'article</a>
+						</p>
+					</div>
+				{% endfor %}
+			</div>
+		{% else %}
+			<div class="text-center pb-4">
+				<h1>Espace Premium</h1>
+				<p class="fs-4">Exclusivement pour les abonnés premium</p>
+			</div>
+			<div class="text-center">
+				<div class="col-md-4 m-auto">
+					<div class="col">
+						<div class="card mb-4 rounded-3 shadow-sm">
+							<div class="card-header py-3">
+								<h4 class="my-0 fw-normal">Premium</h4>
+							</div>
+							<div class="card-body">
+								<h1 class="card-title pricing-card-title">
+									1€<small class="text-body-secondary fw-light">/mois</small>
+								</h1>
+								<ul class="list-unstyled mt-3 mb-4">
+									<li>Articles quotidiens exclusifs</li>
+									<li>Newsletter privé sur la tech</li>
+									<li>Invitations aux webinaires</li>
+								</ul>
+								<button type="button" class="w-100 btn btn-lg btn-outline-success" data-bs-toggle="modal" data-bs-target="#subscription">Je deviens premium</button>
+							</div>
+							<p>
+								<small class="text-body-secondary fw-light">Abonnement sans engagement</small>
+							</p>
+						</div>
+					</div>
+				</div>
+				<p class="fs-5 pt-4">Vous avez déjà un abonnement Premium ?</p>
+				<a href="{{ path('app_login') }}" class="btn btn-outline-primary">Connectez-vous</a>
+			</div>
+
+			<div class="modal fade" id="subscription" tabindex="-1" aria-labelledby="subscription" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title text-center fs-5" id="subcription">Abonnez-vous pour 1€ par mois seulement</h1>
+						</div>
+						<div class="modal-body">
+							<form id='checkout-form' method='post' action="{{ path('subscription') }}">
+								<div class="text-center">
+									<img class="mb-4" src={{ asset('/images/core/bx-color.svg') }} alt="BlogXpres logo" width="150">
+								</div>
+								<p class="fs-2 mb-3 fw-normal text-center">1€</p>
+								<p class="mb-3 fw-normal text-center">
+									<b>par mois sans engagement</b>
+								</p>
+								<input type='hidden' name='stripeToken' id='stripe-token-id'>
+								<div class="col-md-8 m-auto">
+									<div id="card-element" class="form-control mt-2 mb-2"></div>
+									<button id="pay-btn" class="btn btn-primary w-100 py-2" type="button" onclick="createToken()">Procéder au paiement</button>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer ">
+							<p>Paiement sécurisé avec Stripe</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		{% endif %}
+	{% endblock %}
+
+	{# && app.user.isPremium == 1 #}

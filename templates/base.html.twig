@@ -12,6 +12,11 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300&display=swap" rel="stylesheet">
         <link rel="stylesheet" href={{ asset('css/custom.css') }}>
+		{% block stylesheets %}
+        {% endblock %}
+
+		{% block javascripts %}
+		{% endblock %}
 	</head>
 	<body>
 		<div class="container">
@@ -56,7 +61,22 @@
 								</div>
 							</div>
 						</div>
-					{% else %}
+						{% elseif is_granted('ROLE_USER') %}
+						<div class="col">
+							<a class="blog-header-logo text-body-emphasis text-decoration-none" href={{ path('homepage') }}>
+								<img src={{ asset('images/core/bx-line-dark.svg') }} alt="BlogXpress" width="180">
+							</a>
+						</div>
+						<div class="col">
+							<nav class="nav nav-underline justify-content-end align-items-center">
+								<a href={{ path('premium') }}>Articles Premium</a>
+								<a href={{ path('data') }}>Mon profil</a>
+								<a class="p-2 bg-warning rounded-pill" href={{ path('app_logout') }}>
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+								</a>
+							</nav>
+						</div>
+						{% else %}
 						<div class="col-12 text-center">
 							<a class="blog-header-logo text-body-emphasis text-decoration-none" href={{ path('homepage') }}>
 								<img src={{ asset('images/core/bx-line-dark.svg') }} alt="BlogXpress" width="180">
