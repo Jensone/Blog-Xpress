@@ -9,36 +9,14 @@
 	<link rel="stylesheet" href={{ asset('/css/premium.css')}}>
 {% endblock %}
 
-{% block javascripts %}
-	<script src="https://js.stripe.com/v3/" defer></script>
-	<script>
-		let stripe = Stripe("{{ stripe_key }}");
-		let elements = stripe.elements();
-		let cardElement = elements.create("card");
-		cardElement.mount("#card-element");
-		function createToken() {
-		document.getElementById("pay-btn").disabled = true;
-		stripe.createToken(cardElement).then(function (result) {
-		if (typeof result.error != "undefined") {
-		document.getElementById("pay-btn").disabled = false;
-		alert(result.error.message);
-		}
-		// creating token success
-		if (typeof result.token != "undefined") {
-		document.getElementById("stripe-token-id").value = result.token.id;
-		document.getElementById("checkout-form").submit();
-		}
-		});
-		}
-	</script>
-{% endblock %}
-
 {% block body %}
 	{% for message in app.flashes('success') %}
-		<div style="color: green; border: 2px green solid; text-align: center; padding: 5px; margin-bottom: 10px;">
+		<div class="alert alert-success alert-dismissible fade show">
 			{{ message }}
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>
 	{% endfor %}
+
 	<div class="premium">
 		{% if is_granted('ROLE_USER') %}
 			<div class="text-center pb-4">
@@ -125,6 +103,28 @@
 			</div>
 
 		{% endif %}
+
+		<script src="https://js.stripe.com/v3/"></script>
+		<script>
+			let stripe = Stripe("{{ stripe_key }}");
+			let elements = stripe.elements();
+			let cardElement = elements.create("card");
+			cardElement.mount("#card-element");
+			function createToken() {
+				document.getElementById("pay-btn").disabled = true;
+				stripe.createToken(cardElement).then(function (result) {
+				if (typeof result.error != "undefined") {
+					document.getElementById("pay-btn").disabled = false;
+					alert(result.error.message);
+			}
+			// creating token success
+			if (typeof result.token != "undefined") {
+				document.getElementById("stripe-token-id").value = result.token.id;
+				document.getElementById("checkout-form").submit();
+			}
+			});
+			}
+		</script>
 	{% endblock %}
 
 	{# && app.user.isPremium == 1 #}

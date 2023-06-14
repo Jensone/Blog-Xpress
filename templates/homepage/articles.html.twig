@@ -4,12 +4,12 @@
 {% block desc %}{{ articles[0].description}}{% endblock %}
 
 {% block body %}
-	<div class="text-center">
+	<div class="text-center mt-5">
 		<h1>Tous les articles : {{ articles[0].name}}</h1>
-        <p class="fs-4">{{ articles[0].description}}</p>
+        <p class="fs-5 col-7 m-auto">{{ articles[0].description}}</p>
 	</div>
 
-	<div class="row justify-content-center gap-3 mt-3">
+	<div class="row justify-content-center gap-3 mt-5">
 		{% for article in articles[0].articles %}
 			<div class="col-md-5 border rounded p-3">
 				<h4>{{ article.title }}</h4>
