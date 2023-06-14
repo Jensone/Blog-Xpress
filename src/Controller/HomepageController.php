@@ -113,4 +113,19 @@ class HomepageController extends AbstractController
             'article' => $article,
         ]);
     }
+
+    // Route pour afficher les articles premium
+    #[Route('/premium', name: 'premium', methods: ['GET'])]
+    public function premium(
+        ArticleRepository $articleRepository
+    ): Response
+    {
+        return $this->render('homepage/premium.html.twig', [
+            'articles' => $articleRepository->findBy(
+                ['isPremium' => true],
+                ['createdAt' => 'DESC'],
+            ),
+            'stripe_key' => $_ENV["STRIPE_KEY"],
+        ]);
+    }
 }
